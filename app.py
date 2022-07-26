@@ -1,16 +1,20 @@
+from flask_cors import CORS
 from flask import Flask, jsonify
 
 count = 0
 
 app = Flask(__name__)
+cors = CORS(app)
 
-
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
     global count
     count += 1
-    return jsonify(
+    response = jsonify(
 	text="Hello, world",
 	count = count
     )
+    response.headers.add("Access-Control-Allow-Origin", "*")
+
+    return response
 
